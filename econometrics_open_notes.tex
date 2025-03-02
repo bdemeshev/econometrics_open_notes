@@ -1,0 +1,635 @@
+% arara: xelatex
+\documentclass[12pt]{article}
+
+% \usepackage{physics}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\usepackage{verse}
+
+\usepackage{tikzducks}
+
+\usepackage{tikz} % картинки в tikz
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes, arrows, positioning}
+\usepackage{microtype} % свешивание пунктуации
+
+\usepackage{array} % для столбцов фиксированной ширины
+
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering}
+
+\usepackage{amsmath, amsfonts, amssymb} % куча стандартных математических плюшек
+
+\usepackage{comment}
+
+\usepackage[top=2cm, left=1.2cm, right=1.2cm, bottom=2cm]{geometry} % размер текста на странице
+
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+\usepackage{caption}
+
+\usepackage{url} % to use \url{link to web}
+
+
+\newcommand{\smallduck}{\begin{tikzpicture}[scale=0.3]
+    \duck[
+        cape=black,
+        hat=black,
+        mask=black
+    ]
+    \end{tikzpicture}}
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\usepackage{tcolorbox} % рамочки!
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет Последний день Помпеи}
+% \listoftodos - печатает все поставленные \todo'шки
+
+
+% более красивые таблицы
+\usepackage{booktabs}
+% заповеди из докупентации:
+% 1. Не используйте вертикальные линни
+% 2. Не используйте двойные линии
+% 3. Единицы измерения - в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+
+\setcounter{MaxMatrixCols}{20}
+% by crazy default pmatrix supports only 10 cols :)
+
+
+\usepackage{fontspec}
+\usepackage{libertine}
+\usepackage{polyglossia}
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+% download "Linux Libertine" fonts:
+% http://www.linuxlibertine.org/index.php?id=91&L=1
+% \setmainfont{Linux Libertine O} % or Helvetica, Arial, Cambria
+% why do we need \newfontfamily:
+% http://tex.stackexchange.com/questions/91507/
+% \newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 1]{label=\asbuk*),ref=\asbuk*}
+
+%% эконометрические сокращения
+\DeclareMathOperator{\Cov}{\mathbb{C}ov}
+\DeclareMathOperator{\Corr}{\mathbb{C}orr}
+\DeclareMathOperator{\Var}{\mathbb{V}ar}
+\DeclareMathOperator{\col}{col}
+\DeclareMathOperator{\row}{row}
+\DeclareMathOperator{\BestLin}{BestLin}
+
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\trace}{trace}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\mgf}{mgf}
+
+\DeclareMathOperator{\Convex}{Convex}
+\DeclareMathOperator{\plim}{plim}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\scalp}{\langle}{\rangle}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cF}{\mathcal{F}}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+
+\newcommand{\dBern}{\mathrm{Bern}}
+\newcommand{\dPois}{\mathrm{Pois}}
+\newcommand{\dBin}{\mathrm{Bin}}
+\newcommand{\dMult}{\mathrm{Mult}}
+\newcommand{\dGeom}{\mathrm{Geom}}
+\newcommand{\dNHGeom}{\mathrm{NHGeom}}
+\newcommand{\dHGeom}{\mathrm{HGeom}}
+\newcommand{\dDUnif}{\mathrm{DUnif}}
+\newcommand{\dFS}{\mathrm{FS}}
+\newcommand{\dNBin}{\mathrm{NBin}}
+
+\newcommand{\dTri}{\mathrm{Triangle}}
+\newcommand{\dUnif}{\mathrm{Unif}}
+\newcommand{\dCauchy}{\mathrm{Cauchy}}
+\newcommand{\dN}{\mathcal{N}}
+\newcommand{\dLN}{\mathcal{LN}}
+\newcommand{\dExpo}{\mathrm{Expo}}
+\newcommand{\dBeta}{\mathrm{Beta}}
+\newcommand{\dGamma}{\mathrm{Gamma}}
+\newcommand{\dWei}{\mathrm{Wei}}
+\newcommand{\dLogistic}{\mathrm{Logistic}}
+\newcommand{\dRayleigh}{\mathrm{Rayleigh}}
+\newcommand{\dPareto}{\mathrm{Pareto}}
+
+
+\renewcommand{\b}{\beta}
+\newcommand{\hb}{\hat{\beta}}
+\renewcommand{\u}{u}
+\newcommand{\hu}{\hat{u}}
+\newcommand{\hy}{\hat{y}}
+
+
+\newcommand{\alt}{\text{alt}}
+\newcommand{\adj}{\text{adj}}
+\newcommand{\best}{\text{best}}
+\newcommand{\ols}{\text{ols}}
+
+\usepackage{thmtools} % тонкая настройка окружения теорем
+
+
+% окружения!
+\declaretheorem[
+style=definition, 
+title=Теорема, 
+numberwithin=section, 
+]{theorem}
+
+
+% опция sibling=theorem посередине даёт сквозную нумерацию с теоремами
+\declaretheorem[
+style=definition, 
+title=Определение, 
+sibling=theorem, 
+]{definition}
+
+\declaretheorem[
+style=definition, 
+title=Задача, 
+sibling=theorem, 
+]{problem}
+
+
+
+%\newenvironment{problem}{}{} % environment just prints the text
+\newenvironment{sol}{}{}
+\newcommand{\trru}[1]{#1}
+\newcommand{\tren}[1]{#1}
+
+
+
+\begin{document}
+
+% задачи можно дёргать:
+% https://github.com/bdemeshev/metrics_pro/blob/master/metrics_body.tex
+% и ещё (слегка модифицируя)
+% https://github.com/bdemeshev/em_pset
+% картиночки и доказательства на английском:
+% https://github.com/olyagnilova/gauss-markov-pythagoras
+
+
+
+
+\section{Методы получения оценок}
+
+Методы получения оценок: метод максимального правдоподобия, метод моментов, метод наименьших квадратов.
+
+
+\section{Свойства оценок}
+Свойства оценок: несмещённость, состоятельность, эффективность в классе.
+
+
+\section{Асимптотические методы}
+Центральная предельная теорема. Лемма Слуцкого. Дельта-метод. Построение асимптотических доверительных интервалов.
+
+
+\section{Святая троица тестов}
+Три классических теста: LM, LR, Wald.
+
+
+Чёрный трек: тесты в матричной форме для вектора параметров?
+
+\section{ШБ — МНК}
+МНК в скалярной и матричной форме без статистических свойств. Строгая мультиколлинеарность. 
+
+
+Рассказать, что коэффициенты при стандартизации всех переменных называют частными корреляциями. 
+
+Коммент: Здесь первый раз говорим слова "строгая мультиколлинеарность".
+
+Чёрный трэк: нелинейный мнк численно?
+
+Задачи для доски:
+
+МНК и R2 руками на доске
+
+Задачи для колаба:
+
+МНК и R2
+
+Рост R2 c ростом числа регрессоров
+
+Рост RSS с ростом числа наблюдений
+
+\section{Предпосылки о математическом ожидании и дисперсии}
+МНК со статистическими предпосылками на ожидание и дисперсию. Теорема Гаусса-Маркова.
+
+
+
+
+\subsection{Ожидание и ковариационная матрица }
+
+Пусть $r$ --- случайный вектор размерности $n \times 1$, $s$ --- случайный вектор размерности $k \times 1$. $A$ и $b$ --- неслучайные матрица и вектор соответственно, имеющие подходящие размерности.
+
+Математическим ожиданием случайного вектора $r$ называется вектор
+\[
+\E(r) = \begin{pmatrix}
+	\E(r_1)  \\
+	\E(r_2)  \\
+        \dots \\
+        \E(r_n)
+      \end{pmatrix}.
+\]
+
+Ковариационная матрица вектора $r$ определяется следующим образом:
+\[
+\Var(r) = \begin{pmatrix}
+	\Cov(r_1,r_1) & \Cov(r_1,r_2) & \dots & \Cov(r_1,r_n) \\
+	\Cov(r_2,r_1) & \Cov(r_2,r_2) & \dots & \Cov(r_2,r_n) \\
+        \dots & & \dots & \dots\\
+        \Cov(r_n,r_1) & \Cov(r_n,r_2) & \dots & \Cov(r_n,r_n) \\
+      \end{pmatrix}.
+\]
+
+Ковариационная матрица векторов $r$ и $s$ определяется следующим образом:
+\[
+\Cov(r,s) = \begin{pmatrix}
+	\Cov(r_1,s_1) & \Cov(r_1,s_2) & \dots & \Cov(r_1,s_k) \\
+	\Cov(r_2,s_1) & \Cov(r_2,s_2) & \dots & \Cov(r_2,s_k) \\
+        \dots & \dots & \dots & \dots\\
+        \Cov(r_n,s_1) & \Cov(r_n,s_2) & \dots & \Cov(r_n,s_k) \\
+      \end{pmatrix}.
+\]
+
+Далее рассмотрим свойства для вектора математических ожиданий и ковариационной матрицы:
+\begin{enumerate}
+    \item $\E(Ar+b) = A\E(r)+b$
+    \item $\Cov(r,s) = \E(rs^T)-\E(r)\E(s^T)$
+    \item $\Cov(Ar+b,s) = A\Cov(r,s)$
+    \item $\Cov(r,As+b) = \Cov(r,s)A^T$
+    \item $\Var(r)=\Cov(r,r) = \E(rr^T)-\E(r)\E(r^T)$
+    \item $\Var(Ar+b) = A\Var(r)A^T$
+    \item $\E(r^T Ar) = \trace(A\Var(r))+\E(r^T) A\E(r)$  
+\end{enumerate}
+
+\subsection{Иерархия зависимостей случайных величин}
+
+Можно выделить три степени независимости случайных величин. 
+Рассмотрим их на примере пары произвольных величин $r$ и $s$.
+
+\begin{tikzpicture}[node distance=2cm] % Set node distance
+    % Define nodes
+    \node[rectangle, draw=orange, line width=1.5pt] (indep) {$r$ и $s$ независимы}; 
+    \node[rectangle, draw=orange, line width=1.5pt, right=2cm of indep] (indep2) {$\Cov(h_1(r), h_2(s)) = 0$ для любых функций $h_1$ и $h_2$}; 
+
+    \node[rectangle, draw=orange, line width=1.5pt, below of=indep] (noreg) {$\E(r \mid s) = \E(r)$}; 
+    \node[rectangle, draw=orange, line width=1.5pt, right=3cm of noreg] (noreg2) {$\Cov(r, h(s)) = 0$ для любой функции $h$}; 
+
+    \node[rectangle, draw=orange, line width=1.5pt, align=center, below of=noreg] (nocov) {$r$ и $s$ линейно-независимы, \\
+    $\BestLin(r \mid s) = \E(r)$}; 
+    \node[rectangle, draw=orange, line width=1.5pt, right=3cm of nocov] (nocov2) {$\Cov(r, s) = 0$}; 
+
+    % Connect nodes with arrows
+    \draw[{Latex[length=5mm, width=4mm]}-{Latex[length=5mm, width=4mm]}, line width=1pt, double distance=3pt] (indep) -- (indep2);
+    \draw[{Latex[length=5mm, width=4mm]}-{Latex[length=5mm, width=4mm]}, line width=1pt, double distance=3pt] (noreg) -- (noreg2);
+    \draw[{Latex[length=5mm, width=4mm]}-{Latex[length=5mm, width=4mm]}, line width=1pt, double distance=3pt] (nocov) -- (nocov2);
+
+    \draw[-{Latex[length=5mm, width=4mm]}, line width=1pt, double distance=3pt] (indep) -- (noreg);
+    \draw[-{Latex[length=5mm, width=4mm]}, line width=1pt, double distance=3pt] (noreg) -- (nocov);
+\end{tikzpicture}
+
+Напомним, что случайные величины $r$ и $s$ называются независимыми, если 
+для любых числовых множеств $A$ и $B$ независимы события $\{r \in A\}$ и $\{s \in B\}$:
+\[
+\P(r \in A, s \in B) = \P(r \in A) \cdot \P(s \in B)
+\]
+
+Определить линейную независимость величин $r$ и $s$ можно по-разному. 
+Некоторые авторы считают условие $\Cov(r, s) = 0$ определением линейной независимости, в этом случае нижняя эквивалентность на графике тривиальна. 
+Нам кажется более логичным другой подход.
+Величины $r$ и $s$ линейно независимы, если 
+наилучшее линейное приближение $r$ с помощью $s$ не зависит от $s$.
+
+\begin{problem}
+    Покажем, что из равенства условного и безусловного математических ожиданий не следует независимость случайных величин:  
+    
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+      & 1/3 & 1/3 & 1/3 \\ \hline
+    r & -1  & 1   & 0   \\ \hline
+    s & 0   & 0   & 1   \\ \hline
+    \end{tabular}  
+\end{problem}
+
+    
+
+\begin{definition}
+Наилучшее линейное приближение величины $r$ с помощью величины $s$ — это линейная функция от $s$,
+\[
+\BestLin(r \mid s) = \alpha + \beta s,
+\]
+где константы $\alpha$ и $\beta$ находятся из решения задачи оптимизации
+$\E((r - \BestLin(r, s)^2) \to \min_{\alpha, \beta}$.
+    
+\end{definition}
+
+
+\subsection{Теорема Гаусса~--- Маркова}
+
+Чтобы исследовать свойства полученной точечной оценки $\hb$ нам потребуются предпосылки о математическом ожидании и ковариационной матрице вектора $\u$.
+
+Мы предположим, что случайные ошибки в среднем равны нулю, а именно,
+\[
+\E(\u \mid X) = 0.
+\]
+
+Предпосылку о математическом ожидании можно записать и в скалярном виде,
+\[
+\E(\u_i \mid X) = 0, \quad \text{ при } \forall i \in \{1, \dots, n\}.
+\]
+
+
+\begin{theorem}
+Если 
+\begin{enumerate}
+    \item Модель линейна по параметрам: $y = X\b + u$;
+    \item Матрица $X$ размера $[n \times k]$ имеет полный ранг $k$.
+    \item Условное ожидание ошибок равно нулю, $\E(\u \mid X) = 0$;
+    \item Условная ковариационная матрица ошибок пропорциональна единичной, $\Var(\u \mid X) = \sigma^2 I$;
+    \item Оценка $\hb$ получена методом наименьших квадратов, $\hb = (X^T X)^{-1}X^T y$;
+    \item Альтернативная оценка $\hb^{\alt}$ является условно несмещёнными $\E(\hb^{\alt} \mid X) = \b$
+    и линейной по $y$;
+\end{enumerate}
+то
+\begin{enumerate}
+    \item Оценка $\hb$ является линейной по $y$;
+    \item Оценка $\hb$ является условно несмещённой, $\E(\hb \mid X) = \b$ и несмещённой, $\E(\hb) = \b$;
+    \item Оценка любого коэффициента $\hb_j$ является более эффективной, чем альтернативная оценка $\hb_j^{\alt}$:
+\[
+\Var(\hb_j \mid X) \leq \Var(\hb^{\alt}_j \mid X).
+\]
+\end{enumerate}
+\end{theorem}
+
+Вывод теоремы можно усилить, для любой линейной комбинации коэффициентов $w^T \b$ МНК-оценка $w^T \hb$ эффективнее альтернативной оценки $w^T \hb^{\alt}$:
+\[
+\Var(w^T\hb_j \mid X) \leq \Var(w^T \hb^{\alt}_j \mid X).
+\]
+
+
+\subsection{Задачи для доски:}
+
+\begin{problem}
+Исследовательница Мишель собрала данные по 20 студентам. 
+Переменная $y_i$ --- количество решённых задач по эконометрике $i$-ым студентом, 
+а $x_i$ --- количество просмотренных серий любимого сериала за прошедший год. 
+Оказалось, что $\sum y_i = 10$, $\sum x_i = 0$, $\sum x_i^2 = 40$, $\sum y_i^2 = 50$, $\sum x_i y_i = 60$.
+
+\begin{enumerate}
+\item Найдите МНК-оценки коэффициентов парной регрессии.
+\item В рамках предположения $\E(u_i \mid X) = 0$ найдите $\E(y_i \mid X)$, $\E(\hb_j \mid X)$, $\E(\hat u_i \mid X)$, $\E(\hat y_i \mid X)$.
+\item Предположим дополнительно, что $\Var(u_i \mid X)=\sigma^2$ и $u_i$ при фиксированных $X$ независимы. 
+Найдите $\Var(y_i \mid X)$, $\Var(y_i (x_i - \bar x) \mid X)$, $\Var(\sum y_i (x_i - \bar x) \mid X)$, $\Var(\hb_2 \mid X)$.
+\end{enumerate}
+\begin{sol}
+
+  \end{sol}
+\end{problem}
+
+\begin{problem}
+Рассмотрим классическую линейную модель $y=X\beta + u$ с предпосылками Гаусса~--- Маркова: $\E(u \mid X) = 0$ и $\Var(u \mid X) = \sigma^2 I$.
+Для всех случайных векторов ($y$, $\hy$, $\hb$, $u$, $\hat u$, $\bar y$) найдите все возможные ожидания и ковариационные матрицы
+$\E(\cdot)$, $\Var(\cdot)$, $\Cov(\cdot, \cdot)$.
+\begin{sol}
+\end{sol}
+\end{problem}
+
+\begin{problem}
+\trru{Рассмотрим модель $y_i = \beta x_i + u_i$ с двумя наблюдениями, $x_1 = 1$, $x_2 = 2$.
+Величины $u_1$ и $u_2$ независимы и равновероятно равны $+1$ или $-1$.}
+
+
+\begin{enumerate}
+  \item Найдите оценку $\hat\beta_{\ols}$ для $\beta$ с помощью метода наименьших квадратов. 
+  \item Чему равна дисперсия $\Var(\hat\beta_{\text{ols}} \mid x)$ и ожидание $\E(\hat\beta_{\text{ols}} \mid x)$?
+  \item Постройте несмещённую оценку $\hat\beta_{\text{best}}$ с наименьшей дисперсией.
+  \item Чему равна дисперсия $\Var(\hat\beta_{\text{best}}\mid x)$?
+  \item А как же теорема Гаусса — Маркова? Почему в данном примере удаётся построить оценку с дисперсией меньше, чем у оценки методом наименьших квадратов?
+
+\end{enumerate}
+  \begin{sol}
+    \begin{enumerate}
+      \item $\hat\beta_{\text{ols}} = (y_1 + 2y_2)/5$;
+      \item $\Var(\hat\beta_{\text{ols}}\mid x) = 1/5$;
+      \item Заметим, что по величине $2y_1 - y_2$ можно однозначно восстановить величины ошибок $u_1$ и $u_2$.
+      Например, если $2y_1 -y_2 = 3$, то $u_1 = 1$, $u_2 = -1$.
+      \[
+        \hat\beta_{\text{best}} = \begin{cases}
+          y_1 + 1, \text{ если } 2y_1 - y_2 < 0,\\
+          y_1 - 1, \text{ если } 2y_1 - y_2 >0.
+        \end{cases}
+      \]
+      \item Шок контент, $\Var(\hat\beta_{\text{best}}\mid x) = 0$.
+      \item Построенная оценка $\hat\beta_{\text{best}}$ является нелинейной по $y$, 
+      а теорема Гаусса — Маркова гарантирует только, что метод наименьших квадратов 
+      порождает несмещённую оценку с наименьшей дисперсией среди линейных по $y$ оценок. 
+    \end{enumerate}
+        
+  \end{sol}
+\end{problem}
+
+\begin{problem}(Hansen 4.14)
+
+Задана модель $y = X \beta + u$, для которой выполняются предпосылки теоремы Гаусса~--- Маркова. Вас интересует величина $\theta = \beta^2$. Пусть получены МНК-оценки коэффициентов: $\hb$, $V_{\hb} = \Var [\hb | X]$. Тогда кажется неплохой идеей оценить $\theta$ как $\hat{\theta} = \hb^2$.
+
+\begin{enumerate}
+    \item Найдите $\mathbb{E} [\hat{\theta} | X]$. Является ли $\hat{\theta}$ смещённой?
+    
+    \item Предложите способ коррекции смещения для получения несмещённой оценки  $\hat{\theta}^*$, используя результаты предыдущего пункта.
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}
+Рассмотрим модель регрессии $y_i = \beta_1 + \beta_2x_{i2} + ... +\beta_kx_{ik} + \u_i$. Пусть все предпосылки теоремы Гаусса~--- Маркова выполнены. Дополнительно предположим, что $\u_i \sim N(0,\sigma^2), i=1,...,n.$. Дополнительно известно, что на самом деле $\beta_2 = ... = \beta_k = 0$.
+\begin{enumerate}
+\item Найдите $\E(R^2)$.
+\item Найдите $\E(R^2_{\adj})$.
+\end{enumerate}
+\end{problem}
+
+\subsection{Задачи для колаб:}
+
+Генерация R2 для вывода распределения
+
+Генерация смещения
+
+Генерация лишних регерессоров
+
+Реальный пример с лишним регрессорами (тип знаки зодиака и ретроградный)
+
+Какая-то длинная задача, которую из темы в тему и в ней находить потом нарушения предпосылок?
+
+
+
+https://colab.research.google.com/drive/1wFrLyGcVVETx96jS93I4z8asgAQwqIdw?usp=sharing
+
+\subsection{Чёрный трэк:}
+
+\textbf{Умножение блочных матриц.} Если размеры блоков допускают операцию умножения, то:
+
+\[
+\left[
+\begin{array}{c|c}
+A & B \\
+\hline
+C & D
+\end{array}
+\right]
+\cdot
+\left[
+\begin{array}{c|c}
+E & F \\
+\hline
+G & H
+\end{array}
+\right]
+=
+\left[
+\begin{array}{c|c}
+AE + BG &  AF+BH\\
+\hline
+CE+DG & CF+DH
+\end{array}
+\right].
+\]
+
+\bigskip
+
+\textbf{Формула Фробениуса (блочное обращение).}
+\[
+\left[
+\begin{array}{c|c}
+A & B \\
+\hline
+C & D
+\end{array}
+\right]^{-1}=
+\left[
+\begin{array}{c|c}
+A^{-1}+A^{-1}BH^{-1}CA^{-1} & -A^{-1}BH^{-1} \\
+\hline
+-H^{-1}CA^{-1} & H^{-1}
+\end{array}
+\right],
+\]
+
+где $A$ --- невырожденная квадратная матрица размерности $n \times n$, $D$ --- квадратная матрица размерности $k \times k$, $H = D - CA^{-1}B$.
+
+\begin{problem}
+Пусть истинной является модель $y = X_1\b_1+ X_2\b_2+u$, где $X_1$, $X_2$  --- матрицы признаков размерностей $n \times k_1$ и $n \times k_2$ соответственно. Вместо истинной модели вы оцениваете модель вида $y = X_1\b_1+v$, где $v$ --- вектор случайной ошибки, удовлетворяющий предпосылкам теоремы Гаусса~--- Маркова.
+\begin{enumerate}
+    \item Будет ли МНК-оценка вектора параметров $\b_1$ несмещённой?
+    \item Будет ли несмещённой МНК-оценка дисперсии случайной ошибки?
+    \item Рассчитайте $\Var(\hb_1)$. Не противоречит ли полученной результат теореме Гаусса~--- Маркова?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Пусть истинной является модель $y = X_1\b_1+u$, где $X_1$ --- матрица признаков размерности $n \times k_1$. Вместо истинной модели вы оцениваете модель вида $y = X_1\b_1+ X_2\b_2+v$, где $X_2$  --- матрица признаков размерности  $n \times k_2$, $v$ --- вектор случайной ошибки, удовлетворяющий предпосылкам теоремы Гаусса~--- Маркова.
+\begin{enumerate}
+    \item Будет ли МНК-оценка вектора параметров $\b_1$ несмещённой?
+    \item Будет ли несмещённой МНК-оценка дисперсии случайной ошибки?
+    \item Рассчитайте $\Var(\hb_1)$. Не противоречит ли полученной результат теореме Гаусса~--- Маркова?
+\end{enumerate}
+\end{problem}
+
+\section{Доверительные интервалы для коэффициентов}
+Построение доверительных интервалов для МНК оценок. Проверка гипотез. Асимптотика без нормальности ошибок. Нормальность ошибок.
+
+\section{Бутстрэп}
+Бутстрэп. Классический бутстрэп до регрессии и бутстрэп в регрессии. Метод наименьших модулей.
+
+Чёрный трэк: возможно, разные варианты бутстрэпа в регрессии? BCA-бутстрэп до регрессии?
+
+\section{Выбор функциональной формы}
+Дамми-переменные и их интерпретация. Функциональные формы: полиномы, логарифмы, интерпретация коэффициентов. Информационные критерии.
+
+Чёрный трэк: Структурные сдвиги. Тест Чоу. Локально-линейная регрессия (LOESS).
+
+\section{Гетероскедастичность}
+Гетероскедастичность. Тестирование гетероскедастичности. Робастные оценки. Доступный обобщённый МНК.
+
+Задачи для доски:
+
+Хансен: во сколько раз может быть недооценена дисперсия из-за гетероскедастичности
+
+
+Коммент: акцент на робастных ошибках, тестирование и обобщённый МНК — кратко.
+
+\section{Мультиколлинеарность и метод главных компонент}
+Мультиколлинеарность и метод главных компонент.
+
+Чёрный трэк: несколько взглядов на метод главных компонент? LASSO?
+
+
+\section{Эндогенность}
+Эндогенность. Инструментальные переменные. Ошибка измерения регрессора. Двухшаговый МНК.
+
+
+\section{Эффекты воздействия}
+Оценка эффектов воздействия. ATE. LATE. Четкий (sharp) и нечеткий (fuzzy) разрывный регрессионный дизайн (RDD).
+
+Чёрный трэк: Метод разность разностей (DiD). Динамический метода разность разностей (Event Study).
+
+
+
+\section{Логистическая регрессия: точечные оценки}
+Логистическая регрессия: Бинарный и упорядоченный логит. Точечные оценки, прогнозы.  Интерпретация предельных эффектов.
+
+Чёрный трэк: Множественные логиты. Неупорядоченные, условные, смешанные логиты.
+
+\section{Логистическая регрессия: доверительные интервал}
+Логистическая регрессия: доверительные интервалы ипроверка гипотез.
+
+
+
+
+\end{document}
+
